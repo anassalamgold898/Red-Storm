@@ -5,37 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body { margin: 0; padding: 0; background: #000; color: #fff; font-family: sans-serif; overflow-x: hidden; }
+        
+        /* القائمة الجانبية */
+.lang-container { margin-top: 30px; padding: 10px; border-top: 1px solid #333; }
+.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; color: #888; font-size: 13px; cursor: pointer; }
+.lang-grid span:hover { color: #ff4500; }
+.lang-grid .active { color: #ff4500; font-weight: bold; }
+        #side-menu { height: 100%; width: 0; position: fixed; z-index: 10000; top: 0; right: 0; background-color: #111; overflow-x: hidden; transition: 0.5s; padding-top: 60px; text-align: center; }
+        #side-menu a, .btn { padding: 15px; text-decoration: none; font-size: 20px; color: #fff; display: block; background: #ff4500; margin: 10px; cursor: pointer; border-radius: 10px; font-weight: bold; }
+        .close-menu { position: absolute; top: 0; left: 25px; font-size: 36px; cursor: pointer; }
 
         #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .loader-logo { font-size: 2.5em; font-weight: bold; letter-spacing: 5px; }
         .loader-subtitle { color: #ff4500; font-size: 0.9em; letter-spacing: 3px; margin-bottom: 15px; }
         .progress-bar { width: 200px; height: 3px; background: #333; }
         .fill { height: 100%; background: #ff4500; width: 0%; animation: load 3s forwards; }
-        .loading-text { color: #888; font-size: 0.8em; margin-top: 10px; }
         @keyframes load { to { width: 100%; } }
 
         .header { display: flex; justify-content: space-between; padding: 20px; align-items: center; }
+        .menu-icon { font-size: 24px; cursor: pointer; padding: 0 15px; }
         .discord-btn { border: 1px solid #ff4500; color: #ff4500; padding: 6px 20px; text-decoration: none; transition: 0.3s; }
-        .discord-btn:hover { background: #ff4500; color: #fff; }
         .content { text-align: center; padding: 50px 0; }
-        .connect-btn { background: #ff4500; color: #fff; padding: 15px 40px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; transition: 0.3s; }
-        .connect-btn:hover { transform: scale(1.1); }
-
+        .connect-btn { background: #ff4500; color: #fff; padding: 15px 40px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+        
+        /* القسم الخاص بالنصوص */
+        #page-content { display: none; padding: 40px; }
+        .close-btn { background: #333; color: #fff; padding: 10px 25px; cursor: pointer; display: inline-block; border-radius: 5px; }
+        #display-area { line-height: 1.8; max-width: 700px; margin: 20px auto; text-align: right; background: #111; padding: 20px; border-radius: 10px; }
+        
         .stats-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin: 40px 0; }
         .stat-box { text-align: center; min-width: 100px; }
-
         .alert-bar { display: flex; align-items: center; background: #1a0a0a; border: 1px solid #ff4500; width: 90%; max-width: 600px; margin: 20px auto; overflow: hidden; }
         .alert-box { background: #ff4500; color: #000; padding: 10px 15px; font-weight: bold; z-index: 1; }
         .marquee-text { padding: 10px; font-weight: bold; color: #fff; }
-
         .timeline-container { max-width: 800px; margin: 50px auto; padding: 20px; }
         .timeline-item { border-right: 2px solid #ff4500; padding-right: 20px; margin-bottom: 30px; }
         .year { color: #ff4500; font-weight: bold; font-size: 1.2em; }
-
         .partners-section { text-align: center; padding: 40px 0; }
         .partners-logos { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .partners-logos img { height: 50px; opacity: 0.7; }
-
         .footer { text-align: center; padding: 40px; border-top: 1px solid #222; }
     </style>
 </head>
@@ -45,60 +53,208 @@
         <div class="loader-logo">RED STORM</div>
         <div class="loader-subtitle">ZERO OUTBREAK</div>
         <div class="progress-bar"><div class="fill"></div></div>
-        <div class="loading-text">...CONNECTING</div>
     </div>
 
-    <div class="header">
-        <div style="font-weight:bold;">RED STORM</div>
-        <https://discord.gg/K84x9satf>
+    <!-- القائمة الجانبية -->
+    <div id="side-menu">
+        <span class="close-menu" onclick="closeMenu()">&times;</span>
+<div class="btn" onclick="openContent('text1')">ضوابط التقديم</div>
+        <div class="btn" onclick="openContent('text2')">جدول البطولات</div>
+        <div class="btn" onclick="openContent('text3')">معرفة درجة تأهيلك</div>
+        <div class="btn" onclick="openContent('text4')">المراكز الاختبارية</div>
+        <div class="btn" onclick="openContent('text5')">فحص صلاحية الاختبار</div>
+        <div class="btn" onclick="openContent('text6')">تعليمات الكلان</div>
+        <div class="btn" onclick="openContent('text7')">مواد المعركة</div>
+   
+
+<div class="lang-container">
+    <div style="color: #fff; margin-bottom: 10px; font-size: 14px;">اللغة</div>
+    <div class="lang-grid">
+        <span>إنجليزي</span>
+        <span class="active">العربية</span>
+        <span>الفرنسية</span>
+        <span>الإسبانية</span>
+        <span>البرتغالية</span>
+        <span>الألمانية</span>
+        <span>اللغة الإندونيسية</span>
+        <span>हिन्दी</span>
+        <span>إيطالي</span>
+ </div>
+ </div>
+ </div>
+
+
+   <div class="header">
+     <div style="display: flex; align-items: center;">
+            <div class="menu-icon" onclick="openMenu()">☰</div>
+            <div style="font-weight:bold;">RED STORM</div>
+        </div>
         <a href="https://discord.gg/رابطك_هنا" class="discord-btn">DISCORD ⚡️</a>
     </div>
 
-    <div class="content">
-        <h1>RS</h1>
-        <h2>RED STORM</h2>
-        <p style="color:#ff4500;">ZERO OUTBREAK</p>
-        <https://discord.gg/K84x9satf>
-        <a href="https://discord.gg/K84x9satf" class="connect-btn">CONNECT SERVER ⚡️</a>
-    </div>
+    <div id="main-view">
+        <div class="content">
+            <h1>RS</h1>
+            <h2>RED STORM</h2>
+            <p style="color:#ff4500;">ZERO OUTBREAK</p>
+            <a href="https://discord.gg/K84x9satf" class="connect-btn">CONNECT SERVER ⚡️</a>
+        </div>
 
-    <div class="stats-container">
-        <div class="stat-box"><div>LIVE ●</div><div style="color:#888;">SERVER STATUS</div></div>
-        <div class="stat-box"><div>390</div><div style="color:#888;">DISCORD MEMBERS</div></div>
-        <div class="stat-box"><div>54</div><div style="color:#888;">PLAYERS ONLINE</div></div>
-        <div class="stat-box"><div>32ms</div><div style="color:#888;">PING</div></div>
-    </div>
- <div class="alert-bar">
-        <div class="alert-box">ALERT ⚠️</div>
-        <marquee class="marquee-text">⚡️ ALERT // رجال Red Storm يرسلون تحياتهم // تحذير الكلان فقط يلزم مستوى حسابك 60 فما فوق // تحذير ليفل 3 بدأ</marquee>
-    </div>
+        <div class="stats-container">
+            <div class="live-glow"><div style="color: #00ff00;">LIVE ●</div><div style="color:#ff4500;">SERVER STATUS</div></div>
+            <div class="text-shadow"><div style="color: #00ff00;">390</div><div style="color:#ff4500;">DISCORD MEMBERS</div></div>
+            <div class="text-shadow"><div style="color: #00ff00;">54</div><div style="color:#ff4500;">PLAYERS ONLINE</div></div>
+            <div class="text-shadow"><div style="color: #00ff00;">32ms</div><div style="color:#ff4500;">PING</div></div>
+        </div>
 
-    <div class="timeline-container">
-        <h2 style="text-align:center; color:#ff4500;">تاريخ Red Storm</h2>
-        <div class="timeline-item"><div class="year">2019</div><p>بدأ الكلان من 20 لاعب من أبناء المنطقة، وبدأنا بأسماء وكلانات مختلفة، إلى أن استقرينا أخيرًا على اسمنا الحالي: Red Storm.</p></div>
-        <div class="timeline-item"><div class="year">2020</div><p>في هذا العام كانت اللعبة مليئة بالهاكات، ومع ذلك استطعنا إكمال الغاليات، ووصلنا إلى كونكر في أكثر من سيزون رغم صعوبة اللعب والتحديات الكبيرة.</p></div>
-        <div class="timeline-item"><div class="year">2024</div><p>أصبح كلاننا الآن ينافس أقوى الكلانات في الشرق الأوسط، واستطعنا الحصول على التوب الأول أكثر من مرة.</p></div>
-        <div class="timeline-item"><div class="year">2026 - اليوم</div><p>الآن أصبح لدينا عدة فروع بسبب زيادة عدد اللاعبين، فلم يعد لدينا كلان واحد فقط، بل عدة كلانات تحمل جميعها اسم Red Storm.</p></div>
-    </div>
+        <div class="alert-bar">
+            <div class="alert-box">ALERT ⚠️</div>
+            <marquee class="marquee-text">⚡️ ALERT // رجال Red Storm يرسلون تحياتهم // تحذير الكلان فقط يلزم مستوى حسابك 60 فما فوق // تحذير ليفل 3 بدأ</marquee>
+        </div>
 
-    <div class="partners-section">
-        <h3>شركاؤنا</h3>
-        <div class="partners-logos">
-            <img src="https://i.ibb.co/4wf3v4WW/123456789.jpg" alt="Partner">
-            <img src="https://i.ibb.co/r20sVRpd/1234567.jpg" alt="Partner">
-            <img src="https://i.ibb.co/KpxFgJKD/123456.jpg" alt="Partner">
-            <img src="https://i.ibb.co/fzTzwWZ1/12345.jpg" alt="Partner">
+        <div class="timeline-container">
+            <h2 style="text-align:center; color:#ff4500;">تاريخ Red Storm</h2>
+            <div class="timeline-item"><div class="year">2019</div><p>بدأ الكلان من 20 لاعب من أبناء المنطقة، وبدأنا بأسماء وكلانات مختلفة، إلى أن استقرينا أخيرًا على اسمنا الحالي: Red Storm.</p></div>
+            <div class="timeline-item"><div class="year">2020</div><p>في هذا العام كانت اللعبة مليئة بالهاكات، ومع ذلك استطعنا إكمال الغاليات، ووصلنا إلى كونكر في أكثر من سيزون رغم صعوبة اللعب والتحديات الكبيرة.</p></div>
+            <div class="timeline-item"><div class="year">2024</div><p>أصبح كلاننا الآن ينافس أقوى الكلانات في الشرق الأوسط، واستطعنا الحصول على التوب الأول أكثر من مرة.</p></div>
+            <div class="timeline-item"><div class="year">2026 - اليوم</div><p>الآن أصبح لدينا عدة فروع بسبب زيادة عدد اللاعبين، فلم يعد لدينا كلان واحد فقط، بل عدة كلانات تحمل جميعها اسم Red Storm.</p></div>
+        </div>
+
+        <div class="partners-section">
+            <h3>شركاؤنا</h3>
+            <div class="partners-logos">
+                <img src="https://i.ibb.co/4wf3v4WW/123456789.jpg" alt="Partner">
+                <img src="https://i.ibb.co/r20sVRpd/1234567.jpg" alt="Partner">
+                <img src="https://i.ibb.co/KpxFgJKD/123456.jpg" alt="Partner">
+                <img src="https://i.ibb.co/fzTzwWZ1/12345.jpg" alt="Partner">
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>RED STORM</h3>
+            <p>مقرها في العراق</p>
+            <p style="color:#555;">© 2026 RED STORM. جميع الحقوق محفوظة.</p>
         </div>
     </div>
 
-    <div class="footer">
-        <h3>RED STORM</h3>
-        <p>مقرها في العراق</p>
-        <p style="color:#555;">© 2026 RED STORM. جميع الحقوق محفوظة.</p>
+    <!-- صفحة النصوص -->
+    <div id="page-content">
+        <div class="close-btn" onclick="closeText()">إغلاق ✖️</div>
+        <div id="display-area"></div>
     </div>
 
+    <!-- مخزن النصوص -->
+    <div id="text1" style="display:none;"><h2>ضوابط التقديم</h2><p>بسم الله الرحمن الرحيم`**
+
+نحييكم مُحبي Red Storm ونرحب بكم ونتطلع لنجاح تفعيلكم ورؤيتكم سعيدين معنا بالسيرفر.
+
+
+كما أننا نود أن نوضح لكم قوانين وضوابط هامة يجب إتباعها قبل دخول المقابلة الصوتية وهي كالتالي -:
+1- أن يكون عمر المتقدم 15 سنة فما فوق.
+2- مراجعة جميع قوانين السيرفر الموضحة  حيث انه ستكون هنالك اسئلة يجب عليك الإجابة عليها في المقابلة الصوتية.
+3- أن يكون المايكرفون الخاص بك ذا صوت واضح ومسموع دون إزعاج او تشويش.
+4- يجب عليك في حال دخولك لروم إنتظار المقابلة الصوتية التواجد حتى يتم سحبك ومقابلتك وعدم التأفيك في الإنتظار.
+5- يمنع دخول المقابلة عبر الجوال.
+
+إي مخالفة لأحد القوانين أعلاه ستؤدي إلى استبعادك من المقابلة الصوتية.
+
+
+هذا ونسأل الله التوفيق لنا ولكم ونتطلع لإن تصبحوا من اللاعبين الفعالين في مجتمعنا.
+وصلى الله على نبينا محمد وعلى آله وصحبه أجمعين.
+
+RS - Management</p></div>
+<div id="text2" style="display:none;"><h2>جدول البطولات</h2><p>سيتم النشر في حال توجد بطولات</p></div>
+    <div id="text3" style="display:none;"><h2>درجة تأهيلك</h2><p>اختبار تأهيل أعضاء الكلان 🎖️
+سيتم إجراء اختبار لجميع أعضاء الكلان لتحديد مستوى كل لاعب ومنحه درجة تأهيل مناسبة.
+🔹 سيتم تقييم:
+المهارة في القتال (1 ضد 1).
+التعاون والعمل الجماعي.
+سرعة الاستجابة للأوامر.
+التغطية والتمركز.
+الالتزام والانضباط.
+📊 نظام التقييم:
+S+ : نخبة الكلان.
+S : محترف.
+A : ممتاز.
+B : جيد جداً.
+C : يحتاج تطوير.
+يرجى الحضور في الموعد المحدد، وسيتم اعتماد النتائج لتحديد المناصب والفرق داخل الكلان. )</p></div>
+    <div id="text4" style="display:none;"><h2>المراكز الاختبارية</h2><p>📍 الصور المرفقة توضح جميع أماكن الاختبار. يرجى حفظ المواقع جيدًا والالتزام بالتوجه إلى المكان المطلوب عند استدعائكم. 🎖️🔥 ) 
+هذا رابط كل صورة عدد الصور 5
+https://i.ibb.co/XfYDXBss/a1.jpg
+
+https://i.ibb.co/2YkZkpT0/a2.jpg
+
+https://i.ibb.co/pjWCvncK/a3.jpg
+
+https://i.ibb.co/6Jw3cHWD/a4.jpg
+
+https://i.ibb.co/d0JxcVFx/a5.jpg<br>https://i.ibb.co/XfYDXBss/a1.jpg ...</p></div>
+    <div id="text5" style="display:none;"><h2>فحص صلاحية الاختبار</h2><p>📜 صلاحية شهادة التأهيل
+
+يُمنح العضو شهادة تأهيل صالحة لمدة شهر واحد فقط من تاريخ اجتياز الاختبار.
+
+عند انتهاء المدة، يجب على العضو إعادة اختبار التأهيل لتجديد رتبته وتقييم مستواه الحالي داخل الكلان.
+
+⏳ مدة الصلاحية: 30 يومًا
+🔄 إعادة الاختبار: مرة كل شهر
+🎖️ عدم تجديد التأهيل قد يؤدي إلى إلغاء التصنيف الحالي حتى إعادة الاختبار.
+
+إدارة Red Storm 🌪️</p></div>
+    <div id="text6" style="display:none;"><h2>تعليمات الكلان</h2><p>📜 قوانين كلان PUBG 
+
+ يرجى الالتزام بالقوانين التالية:
+
+1️⃣ الاحترام
+يجب احترام جميع أعضاء الكلان بدون أي إساءة أو سب أو مشاكل داخل الشات.
+2️⃣ الفعالية
+على كل عضو يكون نشط ويلعب بشكل مستمر، وعدم الغياب الطويل بدون سبب.
+3️⃣ اللعب الجماعي
+الأفضلية دائمًا للعب مع أعضاء الكلان، والتعاون داخل الفريق وعدم اللعب الفردي بدون سبب.
+4️⃣ عدم الغش أو الهاكات
+أي استخدام هاك أو برامج غير قانونية يؤدي إلى الطرد مباشرة بدون تحذير.
+5️⃣ الالتزام في البطولات
+إذا تم اختيارك للبطولة أو الرانكات، يجب الحضور والالتزام وعدم الانسحاب بدون عذر.
+6️⃣ الاسم والسلوك
+يجب أن يكون اسم اللاعب محترم، والسلوك داخل اللعبة يمثل الكلان بشكل جيد.
+7️⃣ عدم نشر روابط أو إعلانات بدون إذن
+ممنوع إرسال روابط أو إعلانات داخل شات الكلان بدون موافقة الإدارة.
+⚠️ ملاحظة:
+أي مخالفة للقوانين قد تؤدي إلى إنذار أو طرد حسب القرار الإداري PUBG ...</p></div>
+    <div id="text7" style="display:none;"><h2>مواد المعركة</h2><p>( ⚔️ المعركة التنافسية (Competitive Battle)
+
+تم إنشاء نظام المعركة التنافسية لحل الخلافات والتحديات بين أعضاء الكلان بطريقة عادلة ومنظمة.
+
+📌 عند وجود خلاف أو رغبة بالتحدي بين عضوين، يتم فتح روم خاص بإشراف إدارة الكلان.
+
+📋 قوانين المعركة:
+• يلتزم الطرفان بقوانين الكلان.
+• تتم مراقبة المباراة من قبل الإدارة.
+• يمنع التدخل من أي عضو خارج التحدي.
+• يتم اعتماد النتيجة النهائية من قبل الإدارة فقط.
+
+🏆 بعد انتهاء المواجهة:
+• يتم نشر اسم الفائز وإعلان انتصاره رسميًا.
+• يتم نشر اسم الخاسر وإعلان نتيجة المواجهة.
+• تُسجل النتيجة ضمن سجل المعارك التنافسية للكلان.
+
+⚠️ دخول المعركة التنافسية يعني موافقة الطرفين على قبول النتيجة النهائية وعدم إثارة أي مشاكل أو نزاعات بعد إعلانها.
+
+إدارة Red Storm 🌪️</p></div>
+
     <script>
-        // إخفاء شاشة التحميل بعد 3 ثوانٍ
+        function openMenu() { document.getElementById("side-menu").style.width = "250px"; }
+        function closeMenu() { document.getElementById("side-menu").style.width = "0"; }
+        function openContent(id) {
+            closeMenu();
+            document.getElementById('main-view').style.display = 'none';
+            document.getElementById('page-content').style.display = 'block';
+            document.getElementById('display-area').innerHTML = document.getElementById(id).innerHTML;
+        }
+        function closeText() {
+            document.getElementById('main-view').style.display = 'block';
+            document.getElementById('page-content').style.display = 'none';
+        }
         setTimeout(() => { document.getElementById('loading-screen').style.display = 'none'; }, 3000);
     </script>
 </body>
